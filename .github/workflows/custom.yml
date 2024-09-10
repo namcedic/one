@@ -61,12 +61,7 @@ jobs:
       - name: Deploy with Docker Compose
         run: |
           ls -a
-          cd /
-          ls -a
-          cd /home
-          ls -a
-          cd /home/runner/work/one/one
-          ls -a
+          cd ~
           ls -a
           docker-compose -f docker-compose.yml up -d --build
 
