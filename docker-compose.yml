@@ -3,7 +3,6 @@ services:
   app:
     container_name: one
     image: ${IMAGE_TAG:-registry.savvycom.vn/nam.thanh/one/one:latest}
-    env_file: .env
     ports:
       - 3300:3000
     restart: unless-stopped
