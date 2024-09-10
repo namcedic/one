@@ -2,7 +2,7 @@ version: '3.5'
 services:
   app:
     container_name: one
-    image: ${IMAGE_TAG:-registry.savvycom.vn/nam.thanh/one/one:latest}
+    image: cedic/one:latest
     ports:
       - 3300:3000
     restart: unless-stopped
