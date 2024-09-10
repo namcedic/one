@@ -54,9 +54,9 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-#      - name: Copy .env file
-#        run: |
-#          cp .env.example .env
+      - name: Copy .env file
+        run: |
+          cp .env.example .env
 
       - name: Deploy with Docker Compose
         run: |
