@@ -63,6 +63,11 @@ jobs:
           ls -a
           cd /
           ls -a
+          cd /home
+          ls -a
+          cd /home/runner/work/one/one
+          ls -a
+          ls -a
           docker-compose -f docker-compose.yml up -d --build
 
       - name: Clean up unused Docker images
