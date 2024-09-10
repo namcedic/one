@@ -60,6 +60,7 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
+          ls -la
           docker-compose -f docker-compose.yml up -d --build
 
       - name: Clean up unused Docker images
