@@ -32,14 +32,20 @@ jobs:
           tags: cedic/one:latest
           labels: ${{ steps.meta.outputs.labels }}
 
-  # Deploy Job
   deploy:
-    name: Deploy Docker image
     needs: build_and_push
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_LAPTOP }}
+
+      - name: Deploy application via SSH
+        run: |
+          ssh savvycom@14.248.83.148
+          cd /home/savvycom/Node/one-local
+          docker-compose -f up -d
