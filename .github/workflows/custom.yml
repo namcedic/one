@@ -46,6 +46,8 @@ jobs:
 
       - name: Deploy application via SSH
         run: |
+          cd /
+          ls -a
           ssh -o IdentitiesOnly=yes savvycom@10.22.4.168 -p 22 << 'EOF'
             cd /home/savvycom/one-github
             docker-compose up -d
