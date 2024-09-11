@@ -22,14 +22,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: cedic/one
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/one
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: cedic/one:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/one:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
