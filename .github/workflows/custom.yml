@@ -63,6 +63,8 @@ jobs:
       - name: Deploy with Docker Compose
         run: |
           docker-compose -f docker-compose.yml up -d --build
+          cd /
+          sudo rm -rf /actions-runner/_work
 
       - name: Clean up unused Docker images
         run: |
