@@ -7,6 +7,7 @@ on:
 jobs:
   # Build and Push Docker Image
   build_and_push:
+    # using specific  self-hosted runner (runner-on-server) when have multiple runners
     runs-on: [self-hosted, runner-on-server]
     steps:
       - name: Check out the repo
@@ -43,6 +44,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+#      Just need when using docker-compose if not, you can remove it
 #      - name: Set up Docker Compose
 #        run: |
 #          sudo apt-get update
@@ -60,29 +62,8 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          ls -a
           docker-compose -f docker-compose.yml up -d --build
 
       - name: Clean up unused Docker images
         run: |
           docker image prune -f
-
-
-#  deploy:
-#    needs: build_and_push
-#    runs-on: self-hosted
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up SSH
-#        uses: webfactory/ssh-agent@v0.7.0
-#        with:
-#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#
-#      - name: Deploy application via SSH
-#        run: |
-#          ssh savvycom@10.22.4.168 -p 22 << 'EOF'
-#            cd /home/savvycom/one-github
-#            docker-compose up -d
-#          EOF
