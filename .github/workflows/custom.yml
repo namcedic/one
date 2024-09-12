@@ -7,7 +7,7 @@ on:
 jobs:
   # Build and Push Docker Image
   build_and_push:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -33,20 +33,56 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
+    name: Deploy Docker image
+    runs-on: self-hosted
     needs: build_and_push
-    runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Deploy application via SSH
+      - name: Set up Docker Compose
         run: |
-          ssh savvycom@10.22.4.168 -p 22 << 'EOF'
-            cd /home/savvycom/one-github
-            docker-compose up -d
-          EOF
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Copy .env file
+        run: |
+          cp .env.example .env
+
+      - name: Deploy with Docker Compose
+        run: |
+          ls -a
+          docker-compose -f docker-compose.yml up -d --build
+
+      - name: Clean up unused Docker images
+        run: |
+          docker image prune -f
+
+
+#  deploy:
+#    needs: build_and_push
+#    runs-on: self-hosted
+#    steps:
+#      - name: Check out the repo
+#        uses: actions/checkout@v3
+#
+#      - name: Set up SSH
+#        uses: webfactory/ssh-agent@v0.7.0
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#
+#      - name: Deploy application via SSH
+#        run: |
+#          ssh savvycom@10.22.4.168 -p 22 << 'EOF'
+#            cd /home/savvycom/one-github
+#            docker-compose up -d
+#          EOF
