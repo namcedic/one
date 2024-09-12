@@ -67,4 +67,3 @@ jobs:
       - name: Clean up unused Docker images
         run: |
           docker image prune -f
-          sudo rm -rf /actions-runner/_work
