@@ -7,7 +7,7 @@ on:
 jobs:
   # Build and Push Docker Image
   build_and_push:
-    runs-on: self-hosted
+    runs-on: [self-hosted, runner-on-server]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -34,7 +34,7 @@ jobs:
 
   deploy:
     name: Deploy Docker image
-    runs-on: self-hosted
+    runs-on: [self-hosted, runner-on-server]
     needs: build_and_push
     steps:
       - name: Check out the repo
