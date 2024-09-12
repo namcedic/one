@@ -18,12 +18,16 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     volumes:
-      - ./docker-volumes/db/data:/var/lib/postgresql/data
-      - ./docker-volumes/db/sql:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/docker-entrypoint-initdb.d
+#      - ./docker-volumes/db/data:/var/lib/postgresql/data
+#      - ./docker-volumes/db/sql:/docker-entrypoint-initdb.d
     ports:
       - 5437:5432
     networks:
         - one-network-registry-local
+volumes:
+  postgres-data:
 
 networks:
   one-network-registry-local:
