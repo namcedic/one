@@ -64,7 +64,7 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml up -d --build
           cd /
-#          sudo rm -rf /actions-runner/_work
+          sudo rm -rf /actions-runner/_work
 
       - name: Clean up unused Docker images
         run: |
