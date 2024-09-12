@@ -21,6 +21,7 @@ services:
       # mount the volume to local directory /var/lib/docker/volumes
 #      - postgres-data:/var/lib/postgresql/data
 #      - postgres-data:/docker-entrypoint-initdb.d
+      # mount the volume to local directory where docker-compose.yml is located
       - ./docker-volumes/db/data:/var/lib/postgresql/data
       - ./docker-volumes/db/sql:/docker-entrypoint-initdb.d
     ports:
