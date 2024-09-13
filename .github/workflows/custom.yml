@@ -71,9 +71,7 @@ jobs:
       - name: Deploy with Docker Compose
         shell: sh
         run: |
-          ls -a
-          cd /home/savvycom/one-github
-          ls -a
+          cd /home/savvycom/cedric
           sudo docker-compose -f docker-compose.yml up -d --build
 
       - name: Clean up unused Docker images
