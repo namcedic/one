@@ -10,9 +10,11 @@ jobs:
     # using specific  self-hosted runner (runner-on-server) when have multiple runners
     runs-on: [runner-on-server]
     steps:
-      - name: Add permissions to the runner
+      - name: Add permissions to the runner if docker-volumes directory exists
         run: |
-          sudo chmod -R 777 /actions-runner/_work/one/one/docker-volumes
+          if [ -d "/actions-runner/_work/one/one/docker-volumes" ]; then
+            sudo chmod -R 777 /actions-runner/_work/one/one/docker-volumes
+          fi
 
 #          - name: Remove docker-volumes directory (if it exists)
 #        run: |
