@@ -75,6 +75,7 @@ jobs:
           cp .env.example .env
 
       - name: Deploy with Docker Compose
+        shell: sh
         run: |
           ls -a
           cd /home/savvycom/one-github
