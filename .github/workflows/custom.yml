@@ -72,6 +72,6 @@ jobs:
         run: |
           docker image prune -f
 
-      - name: Adjust permissions for docker-volumes
-        run: |
-          sudo chown -R $USER:$USER ./docker-volumes
+#      - name: Adjust permissions for docker-volumes
+#        run: |
+#          sudo chown -R $USER:$USER ./docker-volumes
