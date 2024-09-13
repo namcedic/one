@@ -28,8 +28,11 @@ services:
       - 5437:5432
     networks:
         - one-network-registry-local
+    command: bash -c "chown -R postgres:postgres /var/lib/postgresql/data && docker-entrypoint.sh postgres"
+
 volumes:
   postgres-data:
+    driver: local
 
 networks:
   one-network-registry-local:
