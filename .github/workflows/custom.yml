@@ -71,7 +71,7 @@ jobs:
       - name: Deploy with Docker Compose
         run: |
           ls -a
-          cd /
+          cd /home/savvycom/one-github
           ls -a
           sudo docker-compose -f docker-compose.yml up -d --build
 
