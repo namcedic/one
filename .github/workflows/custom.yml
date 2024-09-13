@@ -10,9 +10,9 @@ jobs:
     # using specific  self-hosted runner (runner-on-server) when have multiple runners
     runs-on: [runner-on-server]
     steps:
-      - name: Remove docker-volumes directory (if it exists)
-        run: |
-          sudo rm -rf /actions-runner/_work/one/one/docker-volumes
+#      - name: Remove docker-volumes directory (if it exists)
+#        run: |
+#          sudo rm -rf /actions-runner/_work/one/one/docker-volumes
 
       - name: Check out the repo
         uses: actions/checkout@v3
