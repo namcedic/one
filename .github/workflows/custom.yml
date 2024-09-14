@@ -69,7 +69,7 @@ jobs:
       - name: Copy .env file
         shell: sh
         run: |
-          cp .env.stg.example .env
+          cp .env.stag.example .env
 
       - name: Deploy with Docker Compose
         shell: sh
