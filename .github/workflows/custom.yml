@@ -33,14 +33,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ secrets.DOCKER_HUB_USERNAME }}/one
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/one-stag
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/one:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/one-stag:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -66,11 +66,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Copy .env file
-        shell: sh
-        run: |
-          ls -a
-          cp .env.stag.example .env
+#      - name: Copy .env file
+#        shell: sh
+#        run: |
+#          ls -a
+#          cp .env.stag.example .env
 
       - name: Deploy with Docker Compose
         shell: sh
