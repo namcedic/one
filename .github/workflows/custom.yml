@@ -2,7 +2,9 @@ name: Publish and Deploy Docker Image
 
 on:
   push:
-    branches: ['dev', 'deploy']
+    branches: ['stag']
+  pull_request:
+      branches: ['stag']
 
 jobs:
   # Build and Push Docker Image
@@ -65,13 +67,14 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Copy .env file
+        shell: sh
         run: |
-          cp .env.example .env
+          cp .env.stg.example .env
 
       - name: Deploy with Docker Compose
         shell: sh
         run: |
-          cd /home/savvycom/cedric/one
+          cd /home/savvycom/cedric/one/stag
           sudo docker-compose -f docker-compose.yml up -d --build
 
       - name: Clean up unused Docker images
