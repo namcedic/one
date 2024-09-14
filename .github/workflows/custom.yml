@@ -2,9 +2,9 @@ name: Publish and Deploy Docker Image
 
 on:
   push:
-    branches: ['stag']
+    branches: ['prod']
   pull_request:
-      branches: ['stag']
+      branches: ['prod']
 
 jobs:
   # Build and Push Docker Image
@@ -33,14 +33,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ secrets.DOCKER_HUB_USERNAME }}/one-stag
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/one-prod
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/one-stag:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/one-prod:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -69,7 +69,7 @@ jobs:
       - name: Deploy with Docker Compose
         shell: sh
         run: |
-          cd /home/savvycom/cedric/one/stag
+          cd /home/savvycom/cedric/one/prod
           sudo docker-compose -f docker-compose.yml up -d --build
 
       - name: Clean up unused Docker images
